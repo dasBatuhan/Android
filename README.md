@@ -1,8 +1,8 @@
-# Abschluss - 2D Autorennspiel
+# Abschluss – 2D-Autorennspiel
 
-Ein 2D-Autorennspiel entwickelt mit Flutter und Flame. Fahren Sie eine Straße entlang und weichen Sie anderen Autos aus, um Punkte zu sammeln!
+Ein 2D-Top-Down-Rennspiel mit **Flutter** und **Flame**: Straße entlangfahren, Gegner ausweichen und Punkte sammeln.
 
-## 📋 Inhaltsverzeichnis
+## Inhaltsverzeichnis
 
 - [Projektbeschreibung](#projektbeschreibung)
 - [Features](#features)
@@ -12,242 +12,171 @@ Ein 2D-Autorennspiel entwickelt mit Flutter und Flame. Fahren Sie eine Straße e
 - [Steuerung](#steuerung)
 - [Spielmechanik](#spielmechanik)
 - [Projektstruktur](#projektstruktur)
-- [Entwickelt mit](#entwickelt-mit)
+- [Scores & Persistenz](#scores--persistenz)
+- [Weitere Dokumentation](#weitere-dokumentation)
+- [Hinweise](#hinweise)
+- [Lizenz](#lizenz)
 
-## 🎮 Projektbeschreibung
+## Projektbeschreibung
 
-"Abschluss" ist ein 2D-Autorennspiel, bei dem der Spieler ein Auto steuert, das eine dreispurige Straße entlangfährt. Das Ziel ist es, so lange wie möglich zu überleben, indem man den entgegenkommenden Autos ausweicht. Je näher man an den Gegner-Autos vorbeifährt, desto mehr Bonus-Punkte erhält man. Mit steigendem Score erhöht sich auch die Geschwindigkeit, was das Spiel zunehmend herausfordernder macht.
+**Abschluss** ist ein 2D-Rennspiel, bei dem du ein Auto auf einer mehrspurigen Straße steuerst. Ziel ist, möglichst lange zu überleben und den **Score** zu erhöhen. Nahe Vorbeifahrten an Gegnern geben **Bonuspunkte**; mit steigendem Score werden **Geschwindigkeit** und **Spawn-Rate** der Gegner anspruchsvoller.
 
-## ✨ Features
+## Features
 
-### Implementierte Funktionen:
+1. **Startmenü** – Spielername (Pflicht), Auswahl des Spieler-Autos, **Touch-** oder **Gyro-Steuerung**
+2. **Spieler-Auto** – mehrere Skins (`assets/images/`), Kollision beendet das Spiel
+3. **Gegner-Autos** – verschiedene Typen, zufällige Spur, Fahrt nach unten
+4. **Straße** – mehrere Spuren, Markierungen und Fahrbahn-Optik
+5. **Score** – Zeit-/Überlebenspunkte + Nähe-Bonus; Anzeige im Spiel
+6. **Highscores & Verlauf** – Top-Liste und letzte Spiele lokal mit **Hive**; Name/Auto/Steuerung mit **SharedPreferences**
+7. **Game-Over-Overlay** – Ergebnis, Hinweis bei neuem persönlichen Highscore, Rückkehr ins Menü
+8. **Robustheit** – fehlende Bilder werden durch **Platzhalter-Sprites** ersetzt (`placeholder_sprite.dart`)
 
-1. **Spieler-Auto**
-   - Blaues Auto mit gelben Rennstreifen
-   - Steuerung nach links und rechts
-   - Kollisionserkennung mit Gegner-Autos
+## Technologie-Stack
 
-2. **Gegner-Autos**
-   - Verschiedene farbige Autos (Rot, Grün, Orange, Lila)
-   - Spawnen zufällig in drei Spuren
-   - Bewegen sich mit steigender Geschwindigkeit nach unten
+| Technologie | Verwendung |
+|-------------|------------|
+| **Flutter** | UI, Navigation, Overlays |
+| **Flame** (^1.20) | 2D-Spiel-Engine, Komponenten, Kollisionen |
+| **Dart** (^3.9) | Sprache |
+| **Hive** + **hive_flutter** | Lokale Highscores & letzte Spiele |
+| **shared_preferences** | Spielername, Autowahl, Steuerungsmodus |
+| **sensors_plus** | Gyro-/Lagesensor-Steuerung |
 
-3. **Straßen-System**
-   - Dreispurige Straße
-   - Gelbe Randlinien
-   - Weiße gestrichelte Mittellinien
-   - Animierte Straßenmarkierungen
-
-4. **Score-System**
-   - Basis-Punkte für überlebte Zeit
-   - Bonus-Punkte basierend auf Nähe zu Gegner-Autos
-   - Score-Anzeige in der oberen linken Ecke
-
-5. **Geschwindigkeitssteigerung**
-   - Geschwindigkeit erhöht sich mit dem Score
-   - Gegner-Autos spawnen häufiger bei höherem Score
-   - Dynamische Schwierigkeitsanpassung
-
-6. **Kollisionserkennung**
-   - Spiel endet bei Kollision mit Gegner-Auto
-   - Präzise Hitbox-Erkennung
-
-7. **Steuerung**
-   - Tastatur-Steuerung (Pfeiltasten oder A/D)
-   - Touch-Steuerung für mobile Geräte
-
-## 🛠 Technologie-Stack
-
-- **Flutter** - UI-Framework
-- **Flame** (v1.20.0) - 2D-Spiel-Engine
-- **Dart** (SDK ^3.9.2) - Programmiersprache
-
-## 📦 Installation
+## Installation
 
 ### Voraussetzungen
 
-- Flutter SDK (Version 3.9.2 oder höher)
-- Dart SDK
-- Ein Emulator oder physisches Gerät zum Testen
+- Flutter SDK (passend zu `environment.sdk` in `pubspec.yaml`)
+- Emulator, Browser oder physisches Gerät
 
-### Abhängigkeiten installieren
+### Abhängigkeiten
 
-1. Navigieren Sie zum Projektverzeichnis:
 ```bash
-cd /home/batuhan/uni/flutter/projects/abschluss
-```
-
-2. Installieren Sie die Abhängigkeiten:
-```bash
+cd projects/abschluss   # oder dein Pfad zum Projekt
 flutter pub get
 ```
 
-## 🚀 Ausführung
-
-### Spiel starten
+## Ausführung
 
 ```bash
-cd /home/batuhan/uni/flutter/projects/abschluss
 flutter run
 ```
 
-### Verfügbare Geräte anzeigen
+Gerät wählen:
 
 ```bash
 flutter devices
-```
-
-### Für ein spezifisches Gerät starten
-
-```bash
 flutter run -d <device-id>
 ```
 
-### Code analysieren
+**Web (Chrome)** – für stabile lokale Speicherung oft fester Port:
+
+```bash
+flutter run -d chrome --web-port 9000
+```
+
+*(Hive/Web nutzt IndexedDB pro Origin – wechselnder Port = „leere“ Datenbank.)*
+
+Analyse:
 
 ```bash
 flutter analyze
 ```
 
-## 🎯 Steuerung
+## Steuerung
 
-### Tastatur (Desktop/Web)
+### Tastatur (Desktop / Web)
 
-- **Pfeiltaste Links** oder **A** - Auto nach links bewegen
-- **Pfeiltaste Rechts** oder **D** - Auto nach rechts bewegen
+- **←** / **A** – links  
+- **→** / **D** – rechts  
 
-### Touch (Mobile)
+### Touch (Menü-Modus „Touch“)
 
-- **Linke Bildschirmhälfte tippen** - Auto nach links bewegen
-- **Rechte Bildschirmhälfte tippen** - Auto nach rechts bewegen
+- **Pfeil-Buttons** unten im Bildschirm (`ControlOverlayWidget`)
 
-## 🎲 Spielmechanik
+### Gyro (Menü-Modus „Gyro“)
 
-### Spielziel
+- **Handy neigen** – seitliche Steuerung (sinnvoll auf echtem Gerät mit Sensor)
 
-Überleben Sie so lange wie möglich und sammeln Sie dabei so viele Punkte wie möglich.
+## Spielmechanik
 
-### Punktesystem
+- **Ziel:** Überleben und Score maximieren  
+- **Basis-Punkte** für überlebte Zeit  
+- **Bonus** bei geringem Abstand zu Gegnern (Near-Miss)  
+- **Geschwindigkeit** und **Spawn-Intervall** skalieren mit dem Score  
+- **Kollision** mit Gegner → Game Over  
 
-1. **Basis-Punkte**: 
-   - Kontinuierliche Punkte für überlebte Zeit
-   - Rate: ~10 Punkte pro Sekunde
+(Detailzahlen und Formeln siehe `DOKUMENTATION.md`.)
 
-2. **Bonus-Punkte**:
-   - Erhalten Sie zusätzliche Punkte, wenn Sie nah an Gegner-Autos vorbeifahren
-   - Formel: `Bonus = (100 - Distanz) / 5`
-   - Je näher, desto mehr Punkte!
-
-### Geschwindigkeitssteigerung
-
-- **Basis-Geschwindigkeit**: 100 Pixel/Sekunde
-- **Geschwindigkeitsformel**: `Aktuelle Geschwindigkeit = Basis + (Score × 0.1)`
-- Mit steigendem Score wird das Spiel schneller und herausfordernder
-
-### Spawn-System
-
-- Gegner-Autos spawnen in zufälligen Spuren
-- **Anfängliches Spawn-Intervall**: 2 Sekunden
-- **Dynamisches Intervall**: Verkürzt sich mit steigendem Score
-- **Minimum**: 0.5 Sekunden zwischen Spawns
-
-### Kollisionserkennung
-
-- Rechteckige Hitboxen für präzise Kollisionserkennung
-- Spiel endet sofort bei Kollision
-- Gegner-Autos werden automatisch entfernt, wenn sie den Bildschirm verlassen
-
-## 📁 Projektstruktur
+## Projektstruktur
 
 ```
 abschluss/
 ├── lib/
-│   ├── main.dart                 # Haupt-Einstiegspunkt der App
-│   └── game/
-│       ├── abschluss_game.dart   # Hauptspiel-Klasse (FlameGame)
-│       └── components/
-│           ├── player_car.dart    # Spieler-Auto Komponente
-│           ├── enemy_car.dart    # Gegner-Auto Komponente
-│           ├── road.dart         # Straßen-System Komponente
-│           ├── score_display.dart # Score-Anzeige Komponente
-│           └── touch_controls.dart # Touch-Steuerung Komponente
-├── pubspec.yaml                  # Projekt-Konfiguration und Abhängigkeiten
-└── README.md                     # Diese Datei
+│   ├── main.dart                    # App-Start, GameScreen, Overlays
+│   ├── screens/
+│   │   └── menu_screen.dart         # Startmenü
+│   ├── services/
+│   │   └── score_service.dart       # Hive + SharedPreferences
+│   ├── game/
+│   │   ├── abschluss_game.dart      # FlameGame, Logik, Spawns
+│   │   ├── utils/
+│   │   │   └── placeholder_sprite.dart
+│   │   └── components/
+│   │       ├── road.dart
+│   │       ├── player_car.dart
+│   │       ├── enemy_car.dart
+│   │       ├── score_display.dart
+│   │       ├── control_overlay.dart
+│   │       ├── gyro_controls.dart
+│   │       ├── game_over_overlay.dart
+│   │       └── touch_controls.dart
+│   └── …
+├── assets/images/                   # Straße, Spieler-, Gegner-Grafiken
+├── pubspec.yaml
+├── README.md                        # Diese Datei
+├── DOKUMENTATION.md                 # Technische Projektdoku
+└── PRAESENTATION_FOLIEN.md          # Folienentwurf für Vortrag
 ```
 
-### Dateibeschreibungen
+### Kurz zu den Hauptdateien
 
-#### `main.dart`
-- Initialisiert die Flutter-App
-- Erstellt den GameScreen mit dem Flame GameWidget
+| Datei | Rolle |
+|-------|--------|
+| `main.dart` | `ScoreService.initDatabase()`, `MenuScreen`, `GameWidget` + Overlays |
+| `menu_screen.dart` | Name, Auto, Steuerung, Anzeige Bestenliste / letzte Spiele |
+| `abschluss_game.dart` | Score, Speed, Gegner-Spawns (u. a. 4 Spuren), Game Over |
+| `score_service.dart` | `ScoreEntry`, Hive-Box `abschluss_score_db`, Einstellungen |
 
-#### `abschluss_game.dart`
-- Hauptspiel-Logik
-- Verwaltet Score, Geschwindigkeit, Spawn-Timer
-- Koordiniert alle Spielkomponenten
-- Implementiert Kollisionserkennung
+## Scores & Persistenz
 
-#### `player_car.dart`
-- Spieler-Auto Komponente
-- Handhabt Tastatur-Eingaben
-- Bewegungslogik (links/rechts)
-- Kollisionsbehandlung
+- **Highscores** und **letzte Spiele** liegen in einer **Hive**-Box (`abschluss_score_db`), Keys u. a. `highscores`, `lastPlays`.
+- **Web:** Speicherung im **IndexedDB** der aktuellen Origin (Host + Port).
+- **Android/iOS/Desktop:** interne App-Daten – kein einzelner Projektordner im Repo.
 
-#### `enemy_car.dart`
-- Gegner-Auto Komponente
-- Verschiedene Farben für Abwechslung
-- Automatische Bewegung nach unten
-- Auto-Entfernung bei Bildschirmausgang
+## Weitere Dokumentation
 
-#### `road.dart`
-- Straßen-Rendering
-- Animierte Straßenmarkierungen
-- Drei Spuren mit gelben Randlinien
+- **`DOKUMENTATION.md`** – durchgängige Beschreibung von Ablauf, Modulen und Score-Service.  
+- **`PRAESENTATION_FOLIEN.md`** – vorgeschlagene Folien für Präsentationen.
 
-#### `score_display.dart`
-- Score-Anzeige im UI
-- Aktualisiert sich kontinuierlich
+## Hinweise
 
-#### `touch_controls.dart`
-- Touch-Eingabe-Handling
-- Links/Rechts-Steuerung basierend auf Tipp-Position
+### Assets
 
-## 🔧 Entwickelt mit
+Grafiken liegen unter `assets/images/` und sind in `pubspec.yaml` unter `flutter: assets` eingetragen. Fehlende Dateien führen nicht zum Absturz dank Platzhalter-Sprites.
 
-- **Flutter** - https://flutter.dev
-- **Flame** - https://flame-engine.org
-- **Dart** - https://dart.dev
+### Mögliche Erweiterungen
 
-## 📝 Hinweise
+- Sound / Musik  
+- Schwierigkeitsgrade oder Power-Ups  
+- Online-Rangliste (z. B. Backend mit Regeln gegen Missbrauch)  
+- Mehr Strecken oder Gegner-Verhalten  
 
-### Texturen hinzufügen
+## Lizenz
 
-Das Spiel verwendet aktuell einfache farbige Rechtecke für die Autos. Um Texturen hinzuzufügen:
-
-1. Erstellen Sie einen `assets/images/` Ordner
-2. Fügen Sie Ihre Auto-Bilder hinzu (z.B. `player_car.png`, `enemy_car.png`)
-3. Aktualisieren Sie `pubspec.yaml`:
-```yaml
-flutter:
-  assets:
-    - assets/images/
-```
-4. Passen Sie die Komponenten an, um `SpriteComponent` statt `RectangleComponent` zu verwenden
-
-### Erweiterungsmöglichkeiten
-
-- Game-Over-Screen mit Restart-Funktion
-- Highscore-Speicherung
-- Verschiedene Schwierigkeitsgrade
-- Power-Ups
-- Sound-Effekte und Musik
-- Auto-Auswahl vor Spielstart
-- Mehrspieler-Modus
-
-## 📄 Lizenz
-
-Dieses Projekt wurde für Bildungszwecke erstellt.
+Projekt zu Bildungszwecken.
 
 ---
 
-**Viel Spaß beim Spielen! 🏎️💨**
+**Viel Spaß beim Spielen.**
