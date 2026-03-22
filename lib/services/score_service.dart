@@ -44,7 +44,8 @@ class ScoreService {
   static const String _boxName = 'abschluss_score_db';
   static const String _highscoresKey = 'highscores';
   static const String _lastPlaysKey = 'lastPlays';
-  static const int _maxHighscores = 20;
+  /// Nur die drei besten Einträge dauerhaft speichern.
+  static const int _maxHighscores = 3;
 
   // SharedPreferences: nur fürs Menu-UI-Setup (Spielername, Autoauswahl)
   static const String _selectedCarKey = 'selected_car';
@@ -125,7 +126,7 @@ class ScoreService {
   }
 
   /// Speichert das Ergebnis für einen Spieler:
-  /// - Highscore-Liste aktualisieren (Top-N)
+  /// - Highscore-Liste aktualisieren (nur die drei besten behalten)
   /// - Letzte 3 Spielstände aktualisieren (chronologisch absteigend)
   ///
   /// Rückgabe: `true`, wenn das Ergebnis neuer Best-Score war.

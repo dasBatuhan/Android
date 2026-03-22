@@ -9,6 +9,8 @@ Dieses Dokument beschreibt alle im Projekt umgesetzten Funktionen und wie der Co
 **Technologie:** Flutter mit Flame-Engine (2D-Spiel)  
 **Spiel:** Top-Down-Rennspiel mit 4 Spuren, Spieler-Auto, Gegner-Autos, Score und persistenter Speicherung.
 
+**Umsetzung auf einen Blick (Diagramme):** siehe **`UMSETZUNG.md`** (Schichten, Abläufe, Flame-Komponenten, Persistenz).
+
 **Struktur:**
 - `main.dart` – App-Start, Menü & Game-Screen
 - `screens/menu_screen.dart` – Startbildschirm mit Auto-Auswahl
@@ -306,7 +308,7 @@ Der Score-Service speichert jetzt Highscores und die letzten 3 Spielstände in e
 ### Persistenz / Daten
 - Hive Box: `_boxName = 'abschluss_score_db'`
 - Hive Keys:
-  - `_highscoresKey = 'highscores'` (Top-N Highscores, aktuell intern begrenzt)
+  - `_highscoresKey = 'highscores'` (Top **3** Highscores, intern begrenzt)
   - `_lastPlaysKey = 'lastPlays'` (letzte 3 Spielstände)
 - Eintragstyp: `ScoreEntry` mit `playerName`, `score`, `playedAt`.
 
@@ -322,7 +324,7 @@ Der Score-Service speichert jetzt Highscores und die letzten 3 Spielstände in e
 ### Spiel speichern
 - `savePlayScore({playerName, score}) -> Future<bool>`
   - schreibt den neuen Spielstand in:
-    - Highscores-Liste (Top-N trimmen)
+    - Highscores-Liste (auf **Top 3** trimmen)
     - Last-plays-Liste (neueste zuerst, auf 3 kürzen)
   - gibt zurück, ob es insgesamt ein neuer Best-Score war.
   - Auf Web wird zusätzlich auf `await put(...)` und `await box.flush()` gewartet,

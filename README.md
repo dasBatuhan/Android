@@ -13,7 +13,7 @@ Ein 2D-Top-Down-Rennspiel mit **Flutter** und **Flame**: Straße entlangfahren, 
 - [Spielmechanik](#spielmechanik)
 - [Projektstruktur](#projektstruktur)
 - [Scores & Persistenz](#scores--persistenz)
-- [Weitere Dokumentation](#weitere-dokumentation)
+- [Weitere Dokumentation](#weitere-dokumentation) (inkl. `UMSETZUNG.md`)
 - [Hinweise](#hinweise)
 - [Lizenz](#lizenz)
 
@@ -151,13 +151,14 @@ abschluss/
 
 ## Scores & Persistenz
 
-- **Highscores** und **letzte Spiele** liegen in einer **Hive**-Box (`abschluss_score_db`), Keys u. a. `highscores`, `lastPlays`.
+- **Highscores** (nur die **3 besten**) und **letzte Spiele** (3 Stück) liegen in einer **Hive**-Box (`abschluss_score_db`), Keys u. a. `highscores`, `lastPlays`.
 - **Web:** Speicherung im **IndexedDB** der aktuellen Origin (Host + Port).
 - **Android/iOS/Desktop:** interne App-Daten – kein einzelner Projektordner im Repo.
 
 ## Weitere Dokumentation
 
 - **`DOKUMENTATION.md`** – durchgängige Beschreibung von Ablauf, Modulen und Score-Service.  
+- **`UMSETZUNG.md`** – **Architektur-Diagramme** (Schichten, Sequenzen, Komponenten, Persistenz).  
 - **`PRAESENTATION_FOLIEN.md`** – vorgeschlagene Folien für Präsentationen.
 
 ## Hinweise
