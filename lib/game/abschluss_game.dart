@@ -1,9 +1,8 @@
 import 'dart:math';
 
-import 'package:flame/game.dart';
 import 'package:flame/events.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'components/player_car.dart';
 import 'components/enemy_car.dart';
 import 'components/road.dart';

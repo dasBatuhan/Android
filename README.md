@@ -130,8 +130,7 @@ abschluss/
 │   │       ├── score_display.dart
 │   │       ├── control_overlay.dart
 │   │       ├── gyro_controls.dart
-│   │       ├── game_over_overlay.dart
-│   │       └── touch_controls.dart
+│   │       └── game_over_overlay.dart
 │   └── …
 ├── assets/images/                   # Straße, Spieler-, Gegner-Grafiken
 ├── pubspec.yaml

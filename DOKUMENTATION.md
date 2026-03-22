@@ -15,7 +15,6 @@ Dieses Dokument beschreibt alle im Projekt umgesetzten Funktionen und wie der Co
 - `main.dart` – App-Start, Menü & Game-Screen
 - `screens/menu_screen.dart` – Startbildschirm mit Auto-Auswahl
 - `game/abschluss_game.dart` – Hauptspiel-Logik (FlameGame)
-- `game/components/` – Road, PlayerCar, EnemyCar, ScoreDisplay, TouchControls, GyroControls, GameOverOverlay
 - `game/components/` – Road, PlayerCar, EnemyCar, ScoreDisplay, GyroControls, ControlOverlay, GameOverOverlay
 - `game/utils/placeholder_sprite.dart` – Platzhalter-Sprite bei fehlenden Bildern
 - `services/score_service.dart` – Highscores/Letzte 3 (Hive) + Spielername/Autoauswahl (SharedPreferences)
@@ -95,7 +94,7 @@ Dieses Dokument beschreibt alle im Projekt umgesetzten Funktionen und wie der Co
 ### Wichtige Variablen
 - `score`, `baseSpeed`, `currentSpeed`, `playTime` (Sekunden), `enemySpawnTimer`, `enemySpawnInterval`.
 - `isGameOver`, `_layoutDone`, `_onLoadDone`, `selectedCarTexture`, `isNewHighscore`.
-- `controlMode` – entscheidet, ob `TouchControls` oder `GyroControls` geladen wird.
+- `controlMode` – entscheidet, ob `ControlOverlay` (Pfeil-Buttons) oder `GyroControls` geladen wird.
 
 ### onLoad()
 1. **Auto-Textur:** `ScoreService.getSelectedCar()` → `selectedCarTexture` (nur gültige Spieler-Autos).

@@ -20,11 +20,11 @@ class _MenuScreenState extends State<MenuScreen> {
   List<ScoreEntry> _topHighscores = const [];
   List<ScoreEntry> _lastPlays = const [];
 
-  // Spielbare Autos (player_car_1–4)
+  // Spielbare Autos (player_car_1–3)
   final List<CarOption> availableCars = [
-    CarOption(name: 'Auto 1', texture: 'player_car_1.png', color: Colors.blue),
-    CarOption(name: 'Auto 2', texture: 'player_car_2.png', color: Colors.grey),
-    CarOption(name: 'Auto 3', texture: 'player_car_3.png', color: Colors.grey),
+    CarOption(texture: 'player_car_1.png', color: Colors.blue),
+    CarOption(texture: 'player_car_2.png', color: Colors.grey),
+    CarOption(texture: 'player_car_3.png', color: Colors.grey),
   ];
 
   @override
@@ -429,14 +429,9 @@ class _MenuScreenState extends State<MenuScreen> {
 }
 
 class CarOption {
-  final String name;
   final String texture;
   final Color color;
 
-  CarOption({
-    required this.name,
-    required this.texture,
-    required this.color,
-  });
+  CarOption({required this.texture, required this.color});
 }
 
