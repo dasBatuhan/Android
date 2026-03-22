@@ -159,6 +159,7 @@ abschluss/
 
 - **`DOKUMENTATION.md`** – durchgängige Beschreibung von Ablauf, Modulen und Score-Service.  
 - **`UMSETZUNG.md`** – **Architektur-Diagramme** (Schichten, Sequenzen, Komponenten, Persistenz).  
+- **`PROJEKT_EINFACH_ERKLAERT.md`** – kurze Erklärung für Einsteiger: Ablauf, Dateien, Zusammenspiel.  
 - **`PRAESENTATION_FOLIEN.md`** – vorgeschlagene Folien für Präsentationen.
 
 ## Hinweise

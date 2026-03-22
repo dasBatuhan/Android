@@ -109,14 +109,15 @@ class AbschlussGame extends FlameGame
       if (e.position.y < minGap) return false;
     }
 
-    final carWidth = size.x * 0.25;
+    final sx = size.x > 0 ? size.x : 400.0;
+    final carWidth = sx * 0.25;
     final carHeight = carWidth * 1.6;
     final laneIndex = Random().nextInt(4);
     final enemyTypeIndex = Random().nextInt(3);
     const roadMargin = 0.12;
-    final roadWidth = size.x * (1.0 - 2 * roadMargin);
+    final roadWidth = sx * (1.0 - 2 * roadMargin);
     final laneWidth = roadWidth / 4;
-    final laneCenterX = size.x * roadMargin + laneWidth * 0.5 + laneIndex * laneWidth;
+    final laneCenterX = sx * roadMargin + laneWidth * 0.5 + laneIndex * laneWidth;
     final spawnX = laneCenterX - carWidth * 0.5;
 
     final enemy = EnemyCar(
@@ -141,25 +142,35 @@ class AbschlussGame extends FlameGame
     // Gegner sind in der World, nicht direkt unter dem Game
     final enemies = world.children.whereType<EnemyCar>().toList();
 
+    // Beim ersten Frames kann size.x noch 0 sein → laneWidth wäre 0 → nie „nah genug“.
+    // Gleiche Referenzbreite wie in onLoad / sinnvoller Fallback.
+    final layoutW = size.x > 0 ? size.x : 400.0;
+    const roadMargin = 0.12;
+    final roadLaneWidth = layoutW * (1.0 - 2 * roadMargin) / 4;
+    // Echte Spurbreite wie beim Spawn; etwas tolerant für benachbarte Spur
+    final horizontalCloseLimit = roadLaneWidth * 1.22;
+
     for (final enemy in enemies) {
       if (enemy.markedForScore) continue;
 
       final horizontalDistance = (enemy.position.x - player.position.x).abs();
       final verticalDistance = enemy.position.y - player.position.y;
 
-      // Vorbeifahrt: Gegner ist auf gleicher Höhe oder gerade vorbeigefahren (leicht unter dem Spieler)
-      final isNearVertically = verticalDistance.abs() < 120;
-      final hasJustPassed = verticalDistance > 0 && verticalDistance < 80;
+      // Etwas großzügiger, damit Near-Miss bei langsamer Anfangsgeschwindigkeit nicht verpasst wird
+      final isNearVertically = verticalDistance.abs() < 145;
+      final hasJustPassed = verticalDistance > 0 && verticalDistance < 105;
 
-      final laneWidth = size.x / 4;
-      final isCloseHorizontally = horizontalDistance < laneWidth * 0.9;
+      final isCloseHorizontally = horizontalDistance < horizontalCloseLimit;
 
       if (isCloseHorizontally && (isNearVertically || hasJustPassed)) {
         // Je näher am Gegner vorbei, desto mehr Punkte (max 50 Basis)
-        final proximityFactor = 1.0 - (horizontalDistance / (laneWidth * 0.9));
+        final proximityFactor =
+            1.0 - (horizontalDistance / horizontalCloseLimit).clamp(0.0, 1.0);
         final nearMissPoints = (25 + (25 * proximityFactor)).round();
-        _scoreBuffer += nearMissPoints * speedMultiplier;
+        final bonusAdded = nearMissPoints * speedMultiplier;
+        _scoreBuffer += bonusAdded;
         enemy.markedForScore = true;
+        scoreDisplay.addNearMissBonus(bonusAdded.round());
       }
     }
 
